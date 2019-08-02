@@ -1,0 +1,19 @@
+{
+    "user": {
+        "avatar_url": "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+        "name": "Haiyun Chen",
+        "brief": "你所遇见的每一个人都在一场你一无所知的战斗中努力,请永远做一个善良的人"
+    },
+    "settings1": {
+        "title": "更改密码",
+        "icon": "fingerprint"
+    },
+    "settings2": {
+        "title": "清除缓存",
+        "icon": "delete",
+    },
+    "settings3": {
+        "title": "退出登录",
+        "icon": "person"
+    }
+}
