@@ -1,6 +1,7 @@
 import Spinner from 'react-native-loading-spinner-overlay';
 import CommonLoading from './CommonLoading';
 import React from "react";
+import {Platform} from "react-native";
 
 export default class SpinnerWrapper extends React.PureComponent {
 
@@ -10,7 +11,7 @@ export default class SpinnerWrapper extends React.PureComponent {
 
         return (
             <Spinner
-                customIndicator={<CommonLoading hideBackground top={Platform.OS === 'ios' ? 185 : 141} />}
+                customIndicator={<CommonLoading hideBackground />}
                 overlayColor="rgba(0, 0, 0, 0)"
                 size="large"
                 visible={loading}

@@ -7,7 +7,8 @@ import {Image, StatusBar, StyleSheet, Text, View} from "react-native";
 import {connect} from "react-redux";
 import {Toolbar} from "../../components/Toolbar";
 import {ListItem, Icon, } from "react-native-elements";
-import * as logoutActions from "../../actions/auth-actions";
+import * as authActions from "../../actions/auth-actions";
+import * as dataActions from "../../actions/data-actions";
 import settings from '../../test/settings';
 import colors from '../../resources/colors';
 
@@ -47,8 +48,8 @@ export class Settings extends Component {
 
     _onUserPress =()=> {}
     _onPasswordPress =()=> {}
-    _onStoragePress =()=> {this.props.dispatch(logoutActions.resetApp());}
-    _onLogoutPress =()=> {this.props.dispatch(logoutActions.logout());}
+    _onStoragePress =()=> {this.props.dispatch(authActions.resetAuth());this.props.dispatch(dataActions.resetData());}
+    _onLogoutPress =()=> {this.props.dispatch(authActions.logout());}
 };
 
 const styles = StyleSheet.create({

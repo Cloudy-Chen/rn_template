@@ -4,9 +4,9 @@
 
 import * as actions from "../actions/action-types";
 
-export function controlProgress(isShowing) {
+export function setLoading(isLoading) {
   return {
-    type: actions.PROGRESS,
-    progress: isShowing
+    type: actions.SET_LOADING,
+    loading: isLoading
   }
 }

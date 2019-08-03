@@ -84,6 +84,13 @@ export default function dataReducer(state, action = {}) {
       return state.withMutations(state => state
           .set('dataResponse',constants.INITIAL));
 
+    case actions.RESET_DATA:
+      return state.withMutations(state => state
+          .set('dataResponse',constants.INITIAL)
+          .set('datas',[])
+          .set('data',{})
+          .set('refreshState',RefreshState.Idle)
+          .set('datasError',false));
     default:
       return state
   }

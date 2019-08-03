@@ -64,9 +64,9 @@ export default class LineAndBarCharts extends React.PureComponent {
 
 LineAndBarCharts.propTypes = {
   xAxisList: PropTypes.array,
-  data1: PropTypes.object,
-  data2: PropTypes.object,
-  data3: PropTypes.object,
+  data1: PropTypes.array,
+  data2: PropTypes.array,
+  data3: PropTypes.array,
 }
 
 const styles = StyleSheet.create({

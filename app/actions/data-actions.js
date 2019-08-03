@@ -51,3 +51,9 @@ export function setResponse(type,data) {
     data: data,
   }
 }
+
+export function resetData(){
+  return {
+    type: actions.RESET_DATA,
+  }
+}

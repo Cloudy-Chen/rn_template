@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from "react";
-import {Image, StatusBar, Text, View, TouchableOpacity, TextInput} from "react-native";
+import {Image, StatusBar, Text, View, TouchableOpacity, TextInput, ImageBackground} from "react-native";
 import {connect} from "react-redux";
 import * as loginActions from "../../actions/auth-actions";
 import * as rootActions from "../../actions/root-actions";
@@ -12,8 +12,9 @@ import colors from '../../resources/colors';
 import dimens from '../../resources/dimens';
 import strings from '../../resources/strings';
 import {isEmptyObject, isObject} from '../../utils/tools'
+import {SpinnerWrapper} from "../../components/SpinnerLoading";
 
-const loginLogo = require('../../assets/img/form_logo.png')
+const backgroundImg = require('../../assets/img/app_background_img.jpg');
 
 export class Register extends Component {
 
@@ -28,12 +29,16 @@ export class Register extends Component {
     }
 
     render() {
+        const loading = this.props.root.get('loading');
+
         return (
             <View style={registerStyles.containerStyle}>
-                <View style={registerStyles.headerStyle}>
-                    <Image style={registerStyles.logoStyle} source={loginLogo}/>
-                    <Text style={registerStyles.titleStyle}>{strings.app_title}</Text>
-                </View>
+                <ImageBackground source={backgroundImg} style={registerStyles.imageBackgroundStyle}>
+                    <View style={registerStyles.headerStyle}>
+                        <View style ={registerStyles.logoWrapperStyle}>
+                            <Text style={registerStyles.titleStyle}>{strings.app_title}</Text>
+                        </View>
+                    </View>
 
                 <View style={registerStyles.contentStyle}>
                     {/*输入用户名*/}
@@ -59,14 +64,23 @@ export class Register extends Component {
 
                     {/*注册按钮*/}
                     <TouchableOpacity
-                        style={registerStyles.buttonStyle}
+                        style={registerStyles.registerButtonStyle}
                         onPress={this.onRegisterPress}>
                         <View style={registerStyles.buttonTextWrapperStyle}>
                             <Text style={registerStyles.buttonTextStyle}>{strings.register_btn}</Text>
                         </View>
                     </TouchableOpacity>
 
+                    {/*返回按钮*/}
+                    <TouchableOpacity
+                        style={registerStyles.backButtonStyle}
+                        onPress={this.onBackPress}>
+                        <View style={registerStyles.buttonTextWrapperStyle}>
+                            <Text style={registerStyles.buttonTextStyle}>{strings.back}</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
+                </ImageBackground>
             </View>
         );
     }
@@ -78,6 +92,9 @@ export class Register extends Component {
             this.props.navigation.state.params.callback(this.state.registerForm.username,this.state.registerForm.password);
         }
     }
+
+    // 对返回按钮的响应
+    onBackPress = () => this.props.navigation.pop();
 };
 
 //布局UI风格
@@ -86,42 +103,62 @@ const registerStyles = {
         flex:4,
         flexDirection: 'column',
         alignItems: 'center',
-        backgroundColor: colors.primaryColor,
+    },
+    imageBackgroundStyle: {
+        width: '100%',
+        height: '100%',
     },
     headerStyle: {
-        flex: 1,
+        flex: 2,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'stretch',
-        backgroundColor:'white',
+    },
+    logoWrapperStyle:{
+        height: 160,
+        width: 160,
+        borderWidth: 1.5,
+        borderColor: colors.baseWhite,
+        borderRadius: 80,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     logoStyle:{
         height:60,
         width:60,
     },
     titleStyle:{
-        color: colors.primaryColor,
-        fontSize: 22,
-        marginTop:dimens.margin_medium
+        color: colors.baseWhite,
+        fontSize: 30,
     },
     contentStyle: {
         flex:3,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: colors.primaryColor,
 
     },
-    buttonStyle: {
+    registerButtonStyle: {
         flexDirection:'row',
         height:45,
         width:300,
-        backgroundColor:'#eee',
+        borderColor:'#eee',
+        borderWidth: 1.5,
         margin:10,
         marginTop:25,
         padding:10,
         borderRadius:15
+    },
+    backButtonStyle: {
+        flexDirection:'row',
+        height:45,
+        width:300,
+        backgroundColor:colors.primaryColor,
+        margin:10,
+        marginTop:5,
+        padding:10,
+        borderRadius:15,
     },
     buttonTextWrapperStyle: {
         flex:1,
@@ -129,7 +166,7 @@ const registerStyles = {
         alignItems:'center'
     },
     buttonTextStyle: {
-        color:colors.primaryColorDark,
+        color:colors.baseWhite,
         fontSize:18,
     },
 };

@@ -1,12 +1,15 @@
 import React from 'react';
-import { View, StyleSheet, ActivityIndicator, Platform } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Platform, Text } from 'react-native';
+import colors from '../../../resources/colors';
+import strings from '../../../resources/strings';
 
 export default class CommonLoading extends React.PureComponent {
   render() {
     const { width } = require('Dimensions').get('window');
     return (
-      <View style={[styles.common, !this.props.hideBackground ? styles.wrapper : null, { top: this.props.top ? this.props.top : (width * 3) / 5 }]}>
-        <ActivityIndicator color="#B5D507" size="large" />
+      <View style={[styles.common, !this.props.hideBackground ? styles.wrapper : null, { top: this.props.top ? this.props.top : (width * 3) / 4 }]}>
+        <ActivityIndicator color={colors.baseWhite} size="large" />
+        <Text style={styles.text}>{strings.login_wait}</Text>
       </View>
     );
   }
@@ -20,7 +23,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   wrapper: {
-    backgroundColor: 'white',
+    backgroundColor: colors.baseWhite,
     width: 64,
     height: 64,
     borderRadius: 8,
@@ -30,4 +33,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     elevation: 3,
   },
+  text: {
+    color:colors.baseWhite,
+    marginTop: 10,
+    fontSize: 14
+  }
 });

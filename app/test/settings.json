@@ -10,7 +10,7 @@
     },
     "settings2": {
         "title": "清除缓存",
-        "icon": "delete",
+        "icon": "delete"
     },
     "settings3": {
         "title": "退出登录",

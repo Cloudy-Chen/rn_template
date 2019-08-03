@@ -31,15 +31,15 @@ const combinedReducers = combineReducers({
 
 const initialState = new Immutable.Map({
   root: Immutable.Map({
-    progress: undefined,
+    loading: false,
   }),
   auth: Immutable.Map({
     isLoggedIn: false,
     loginError: '',
     registerStatus: false,
-    username:'',
-    password:'',
-    sessionId:'',
+    username: '',
+    password: '',
+    sessionId: '',
   }),
   data: Immutable.Map({
     data: {},

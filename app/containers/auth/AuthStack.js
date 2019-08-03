@@ -12,6 +12,7 @@ const Routes = {
 };
 const AuthStack = createStackNavigator(Routes, {
   defaultNavigationOptions: {
+    header:null
   },
   headerMode: 'screen'
 });

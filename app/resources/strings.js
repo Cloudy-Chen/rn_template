@@ -10,9 +10,10 @@ module.exports = new LocalizedStrings({
     confirm: "确定",
     cancel: "取消",
     choose: "选择",
+    back: "返回",
 
     // auth
-    app_title: "Form Template",
+    app_title: "Template",
     login_btn: "登录",
     login_validate_msg: "请将登录信息填写完整",
     login_success: "登录成功",
@@ -21,6 +22,7 @@ module.exports = new LocalizedStrings({
     register_validate_msg: "请将注册信息填写完整",
     register_success: "注册成功",
     register_fail: "注册失败",
+    login_wait: "登录中,请稍候...",
 
     // form
     edit_btn: "修改",
@@ -64,5 +66,8 @@ module.exports = new LocalizedStrings({
     address: "地点",
     time: "时间",
     type: "类型",
+    title_line_chart: "折线图统计",
+    title_bar_chart: "柱状图统计",
+    title_pie_chart: "饼状图统计",
   },
 });

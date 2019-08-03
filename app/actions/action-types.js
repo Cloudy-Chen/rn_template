@@ -2,6 +2,9 @@
  * action-types.js
  */
 
+//root
+export const SET_LOADING = "SET_LOADING";
+
 // auth
 export const LOGIN_ACTION = "LOGIN_ACTION";
 export const LOGOUT_ACTION = "LOGOUT_ACTION";
@@ -9,8 +12,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCESS";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const LOGOUT_ERROR = "LOGOUT_ERROR";
-export const PROGRESS = "PROGRESS";
-export const RESET = "RESET";
+export const RESET_AUTH = "RESET_AUTH";
 
 // data
 export const GET_DATAS_ACTION = "GET_DATAS_ACTION";
@@ -38,6 +40,8 @@ export const EDIT_DATA_FAIL = "EDIT_DATA_FAIL";
 export const DELETE_DATA_ACTION = "DELETE_DATA_ACTION";
 export const DELETE_DATA_SUCCESS = "DELETE_DATA_SUCCESS";
 export const DELETE_DATA_FAIL = "DELETE_DATA_FAIL";
+
+export const RESET_DATA = "RESET_DATA";
 
 export const RESET_RESPONSE = "RESET_RESPONSE";
 

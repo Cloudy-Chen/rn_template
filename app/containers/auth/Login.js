@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from "react";
-import {Image, StatusBar, Text, View, TouchableOpacity, TextInput, InteractionManager, StyleSheet} from "react-native";
+import {Image, StatusBar, Text, View, TouchableOpacity, TextInput, InteractionManager, StyleSheet, Platform, ImageBackground} from "react-native";
 import {connect} from "react-redux";
 import * as loginActions from "../../actions/auth-actions";
 import * as rootActions from "../../actions/root-actions";
@@ -14,7 +14,7 @@ import strings from '../../resources/strings';
 import {isEmptyObject, isObject} from '../../utils/tools'
 import {SpinnerWrapper} from '../../components/SpinnerLoading/index'
 
-const loginLogo = require('../../assets/img/form_logo.png')
+const backgroundImg = require('../../assets/img/app_background_img.jpg');
 
 export class Login extends Component {
 
@@ -31,7 +31,7 @@ export class Login extends Component {
 
     componentDidMount() {
         InteractionManager.runAfterInteractions(()=> {
-            this.props.dispatch(rootActions.controlProgress(false));
+            this.props.dispatch(rootActions.setLoading(false));
         });
     }
 
@@ -48,17 +48,20 @@ export class Login extends Component {
             alert(loginError.message);
             this.props.dispatch(loginActions.setLoginError({}))
         } else if (isLoggedIn) {
-            // 自动登录
-            this.props.navigation.navigate('RootStack');
+            this.props.navigation.navigate('RootStack'); //自动登录
         }
     }
 
     render() {
+        const loading = this.props.root.get('loading');
+
         return (
             <View style={loginStyles.containerStyle}>
+                <ImageBackground source={backgroundImg} style={loginStyles.imageBackgroundStyle}>
                 <View style={loginStyles.headerStyle}>
-                    <Image style={loginStyles.logoStyle} source={loginLogo}/>
+                    <View style ={loginStyles.logoWrapperStyle}>
                     <Text style={loginStyles.titleStyle}>{strings.app_title}</Text>
+                    </View>
                 </View>
 
                 <View style={loginStyles.contentStyle}>
@@ -85,7 +88,7 @@ export class Login extends Component {
 
                     {/*登录按钮*/}
                     <TouchableOpacity
-                        style={loginStyles.buttonStyle}
+                        style={loginStyles.loginButtonStyle}
                         onPress={this.onLoginPress}>
                         <View style={loginStyles.buttonTextWrapperStyle}>
                             <Text style={loginStyles.buttonTextStyle}>{strings.login_btn}</Text>
@@ -94,14 +97,17 @@ export class Login extends Component {
 
                     {/*注册按钮*/}
                     <TouchableOpacity
-                        style={loginStyles.buttonStyle}
+                        style={loginStyles.registerButtonStyle}
                         onPress={this.onRegisterPress}>
                         <View style={loginStyles.buttonTextWrapperStyle}>
                             <Text style={loginStyles.buttonTextStyle}>{strings.register_btn}</Text>
                         </View>
                     </TouchableOpacity>
-
                 </View>
+
+                    {/*登录加载*/}
+                    <SpinnerWrapper loading={loading}/>
+                </ImageBackground>
             </View>
         );
     }
@@ -131,42 +137,62 @@ const loginStyles = StyleSheet.create({
         flex:4,
         flexDirection: 'column',
         alignItems: 'center',
-        backgroundColor: colors.primaryColor,
+    },
+    imageBackgroundStyle: {
+        width: '100%',
+        height: '100%',
     },
     headerStyle: {
-        flex: 1,
+        flex: 2,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'stretch',
-        backgroundColor:'white',
+    },
+    logoWrapperStyle:{
+        height: 160,
+        width: 160,
+        borderWidth: 1.5,
+        borderColor: colors.baseWhite,
+        borderRadius: 80,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     logoStyle:{
         height:60,
         width:60,
     },
     titleStyle:{
-        color: colors.primaryColor,
-        fontSize: 22,
-        marginTop:dimens.margin_medium
+        color: colors.baseWhite,
+        fontSize: 30,
     },
     contentStyle: {
         flex:3,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: colors.primaryColor,
 
     },
-    buttonStyle: {
+    loginButtonStyle: {
         flexDirection:'row',
         height:45,
         width:300,
-        backgroundColor:'#eee',
+        borderColor:'#eee',
+        borderWidth: 1.5,
         margin:10,
         marginTop:25,
         padding:10,
         borderRadius:15
+    },
+    registerButtonStyle: {
+        flexDirection:'row',
+        height:45,
+        width:300,
+        backgroundColor:colors.primaryColor,
+        margin:10,
+        marginTop:5,
+        padding:10,
+        borderRadius:15,
     },
     buttonTextWrapperStyle: {
         flex:1,
@@ -174,7 +200,7 @@ const loginStyles = StyleSheet.create({
         alignItems:'center'
     },
     buttonTextStyle: {
-        color:colors.primaryColorDark,
+        color:colors.baseWhite,
         fontSize:18,
     },
 });

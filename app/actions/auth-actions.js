@@ -48,8 +48,8 @@ export function setLogoutError(error) {
   }
 }
 
-export function resetApp(){
+export function resetAuth(){
   return {
-    type: actions.RESET,
+    type: actions.RESET_AUTH,
   }
 }

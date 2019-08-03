@@ -14,7 +14,9 @@ function* authorize( action ) {
   const {username,password} = action;
 
   try {
+    yield put(rootActions.setLoading(true));
     const response = yield call(Api.getAccessToken, username, password);
+    yield put(rootActions.setLoading(false));
     if (response.errorMessageList != null && response.errorMessageList != undefined && response.errorMessageList.size > 0) {
       yield put(authActions.setLoginError(response.errorMessageList[1]));
     } else {

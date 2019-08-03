@@ -51,4 +51,9 @@ export default {
   EDIT_DATA_FAIL : "EDIT_DATA_FAIL",
   DELETE_DATA_SUCCESS : "DELETE_DATA_SUCCESS",
   DELETE_DATA_FAIL : "DELETE_DATA_FAIL",
+
+  // CHART
+  ADRESS_DROP_DOWN : ['中国','日本','美国'],
+  TIME_DROP_DOWN : ['1月','2月','3月'],
+  TYPE_DROP_DOWN : ['食物','服饰','生活'],
 }
