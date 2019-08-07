@@ -6,7 +6,7 @@ import React, {Component} from "react";
 import {Image, StatusBar, StyleSheet, Text, View} from "react-native";
 import {connect} from "react-redux";
 import {Toolbar} from "../../components/Toolbar";
-import PoiMap from "../../components/rnMap/js/PoiMap";
+import MicrosoftMap from "../../components/rnMap/js/MicrosoftMap/MicrosoftMap";
 
 export class Map extends Component {
 
@@ -22,7 +22,7 @@ export class Map extends Component {
     return (
         <View style={styles.container}>
             <Toolbar title = "地图" actions = {[]} navigation = {this.props.navigation}>
-                <PoiMap/>
+                <MicrosoftMap/>
             </Toolbar>
         </View>);
   }
