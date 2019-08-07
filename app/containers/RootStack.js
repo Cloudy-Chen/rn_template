@@ -9,6 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import FormStack from "./form/FormStack";
 import ChartStack from "./chart/ChartStack";
 import SettingsStack from "./settings/SettingsStack";
+import MapStack from "./map/MapStack";
 import colors from '../resources/colors'
 
 const TAB_CONFIG = {
@@ -20,6 +21,10 @@ const TAB_CONFIG = {
     label: '图表',
     icon: 'md-pie',
   },
+  MapStack: {
+    label: '地图',
+    icon: 'md-map',
+  },
   SettingsStack: {
     label: '设置',
     icon: 'md-settings',
@@ -27,8 +32,9 @@ const TAB_CONFIG = {
 };
 
 const Routes = {
-  FormStack:FormStack,
-  ChartStack:ChartStack,
+  FormStack: FormStack,
+  ChartStack: ChartStack,
+  MapStack: MapStack,
   SettingsStack: SettingsStack,
 };
 
