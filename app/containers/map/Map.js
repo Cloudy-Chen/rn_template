@@ -6,7 +6,7 @@ import React, {Component} from "react";
 import {Image, StatusBar, StyleSheet, Text, View} from "react-native";
 import {connect} from "react-redux";
 import {Toolbar} from "../../components/Toolbar";
-import MicrosoftMap from "../../components/rnMap/js/MicrosoftMap/MicrosoftMap";
+import {MicrosoftMap, PoiMap} from "../../components/rnMap/index";
 
 export class Map extends Component {
 

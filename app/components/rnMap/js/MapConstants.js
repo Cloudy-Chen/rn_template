@@ -18,4 +18,5 @@ export default {
     POI: 1,
     SEARCH: 2,
     PAN: 3,
+    CLICK: 4,
 }
