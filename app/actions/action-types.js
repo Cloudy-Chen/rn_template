@@ -45,3 +45,7 @@ export const RESET_DATA = "RESET_DATA";
 
 export const RESET_RESPONSE = "RESET_RESPONSE";
 
+// notification
+export const ADD_NOTIFICATION = "ADD_NOTIFICATION";
+export const RESET_NOTIFICATION = "RESET_NOTIFICATION";
+

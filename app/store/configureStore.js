@@ -17,6 +17,7 @@ import authReducer from "../reducers/authReducer";
 import rootReducer from "../reducers/rootReducer";
 import dataReducer from "../reducers/dataReducer";
 import chartReducer from "../reducers/chartReducer";
+import notificationReducer from "../reducers/notificationReducer";
 
 import { rootSaga } from './saga';
 import {RefreshState} from "../components/RefreshListView";
@@ -26,7 +27,8 @@ const combinedReducers = combineReducers({
   root: rootReducer,
   auth: authReducer,
   data: dataReducer,
-  chart: chartReducer
+  chart: chartReducer,
+  notification: notificationReducer,
 });
 
 const initialState = new Immutable.Map({
@@ -49,7 +51,10 @@ const initialState = new Immutable.Map({
     dataResponse: constants.INITIAL,
   }),
   chart: Immutable.Map({
-  })
+  }),
+  notification: Immutable.Map({
+    notifications:[],
+  }),
 });
 
 export default function configureStore() {

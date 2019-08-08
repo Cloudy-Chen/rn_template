@@ -22,7 +22,7 @@ export class Map extends Component {
     return (
         <View style={styles.container}>
             <Toolbar title = "地图" actions = {[]} navigation = {this.props.navigation}>
-                <MicrosoftMap/>
+                <PoiMap/>
             </Toolbar>
         </View>);
   }

@@ -10,6 +10,7 @@ import FormStack from "./form/FormStack";
 import ChartStack from "./chart/ChartStack";
 import SettingsStack from "./settings/SettingsStack";
 import MapStack from "./map/MapStack";
+import NotificationStack from './notification/NotificationStack';
 import colors from '../resources/colors'
 
 const TAB_CONFIG = {
@@ -25,6 +26,10 @@ const TAB_CONFIG = {
     label: '地图',
     icon: 'md-map',
   },
+  NotificationStack:{
+    label: '通知',
+    icon: 'md-notifications',
+  },
   SettingsStack: {
     label: '设置',
     icon: 'md-settings',
@@ -35,6 +40,7 @@ const Routes = {
   FormStack: FormStack,
   ChartStack: ChartStack,
   MapStack: MapStack,
+  NotificationStack:NotificationStack,
   SettingsStack: SettingsStack,
 };
 

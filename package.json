@@ -36,6 +36,7 @@
     "redux-saga": "^0.16.2"
   },
   "devDependencies": {
+    "@types/node": "^12.7.1",
     "babel-jest": "24.8.0",
     "jest": "24.8.0",
     "metro-react-native-babel-preset": "0.55.0",

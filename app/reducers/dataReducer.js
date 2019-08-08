@@ -1,5 +1,5 @@
 /**
- * detailReducer.js
+ * dataReducer.js
  */
 
 import * as actions from "../actions/action-types";

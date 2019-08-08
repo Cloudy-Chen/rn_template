@@ -1,5 +1,5 @@
 /**
- * Created by saionara1 on 6/29/17.
+ * chartReducer.js
  */
 import * as actions from "../actions/action-types";
 
