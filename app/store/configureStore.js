@@ -17,6 +17,7 @@ import authReducer from "../reducers/authReducer";
 import rootReducer from "../reducers/rootReducer";
 import dataReducer from "../reducers/dataReducer";
 import chartReducer from "../reducers/chartReducer";
+import settingsReducer from '../reducers/settingsReducer';
 import notificationReducer from "../reducers/notificationReducer";
 
 import { rootSaga } from './saga';
@@ -28,6 +29,7 @@ const combinedReducers = combineReducers({
   auth: authReducer,
   data: dataReducer,
   chart: chartReducer,
+  settings: settingsReducer,
   notification: notificationReducer,
 });
 
@@ -53,8 +55,13 @@ const initialState = new Immutable.Map({
   chart: Immutable.Map({
   }),
   notification: Immutable.Map({
-    notifications:[],
+    notifications: [],
+    amount: 0,
   }),
+  settings: Immutable.Map({
+    answers: [],
+    amount: 0,
+  })
 });
 
 export default function configureStore() {

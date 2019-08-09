@@ -177,3 +177,15 @@ export function addMember(list,item) {
   list = [...list,item];
   return list;
 }
+
+export function getNow() {
+  var date = new Date();
+
+  var year = date.getFullYear().toString();
+  var month = (date.getMonth()+1).toString();
+  var day = date.getDate().toString();
+  var hour =  date.getHours().toString();
+  var minute = date.getMinutes().toString();
+
+  return year+'-'+month+'-'+day+' '+hour+':'+minute;
+};

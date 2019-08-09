@@ -10,11 +10,13 @@ export default function notificationReducer(state, action = {}) {
       var curNotifications = state.get('notifications');
       curNotifications.push(action.notification);
       return state.withMutations(state => state
-          .set('notifications',curNotifications));
+          .set('notifications',curNotifications)
+          .set('amount',curNotifications.length));
 
     case actions.RESET_NOTIFICATION:
       return state.withMutations(state => state
-          .set('notifications',[]));
+          .set('notifications',[])
+          .set('amount',0));
 
     default:
       return state

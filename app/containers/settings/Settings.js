@@ -27,15 +27,16 @@ export class Settings extends Component {
 
   render() {
 
-    const {settings1, settings2 ,settings3} = settings;
+    const {settings1, settings2, settings3, settings4} = settings;
 
     return (
-        <View style={{flex:1,alignItems:'center',justifyContent: 'center'}}>
+        <View style={styles.container}>
             <Toolbar title = "设置" actions = {[]} navigation = {this.props.navigation}>
                 {this._renderUserHeader(settings.user)}
                 <ListItem key={1} title={settings1.title} leftIcon={{ name: settings1.icon, color: colors.primaryGray }} style={styles.listItemStyle} chevron onPress={this._onPasswordPress}/>
                 <ListItem key={2} title={settings2.title} leftIcon={{ name: settings2.icon, color: colors.primaryGray }} style={styles.listItemStyle} chevron onPress={this._onStoragePress}/>
-                <ListItem key={3} title={settings3.title} leftIcon={{ name: settings3.icon, color: colors.primaryGray }} style={styles.listItemStyle} chevron onPress={this._onLogoutPress}/>
+                <ListItem key={3} title={settings3.title} leftIcon={{ name: settings3.icon, color: colors.primaryGray }} style={styles.listItemStyle} chevron onPress={this._onAIServerPress}/>
+                <ListItem key={4} title={settings4.title} leftIcon={{ name: settings4.icon, color: colors.primaryGray }} style={styles.listItemStyle} chevron onPress={this._onLogoutPress}/>
             </Toolbar>
         </View>);
   }
@@ -46,13 +47,19 @@ export class Settings extends Component {
       );
     }
 
-    _onUserPress =()=> {}
-    _onPasswordPress =()=> {}
-    _onStoragePress =()=> {this.props.dispatch(authActions.resetAuth());this.props.dispatch(dataActions.resetData());}
-    _onLogoutPress =()=> {this.props.dispatch(authActions.logout());}
+    _onUserPress =()=> {};
+    _onPasswordPress =()=> {};
+    _onStoragePress =()=> {this.props.dispatch(authActions.resetAuth());this.props.dispatch(dataActions.resetData());};
+    _onAIServerPress =()=> {this.props.navigation.push('AIServerContainer')};
+    _onLogoutPress =()=> {this.props.dispatch(authActions.logout());};
 };
 
 const styles = StyleSheet.create({
+    container: {
+      flex:1,
+      alignItems:'center',
+      justifyContent: 'center'
+    },
     listItemStyle: {
         borderBottomWidth: 0.7,
         borderColor: colors.primaryGrayLight,

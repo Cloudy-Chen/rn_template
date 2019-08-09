@@ -13,6 +13,10 @@
         "icon": "delete"
     },
     "settings3": {
+        "title": "智能问答",
+        "icon": "mic"
+    },
+    "settings4": {
         "title": "退出登录",
         "icon": "person"
     }

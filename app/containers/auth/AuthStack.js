@@ -1,5 +1,5 @@
 /**
- * Created by saionara1 on 6/21/17.
+ * AuthStack.js
  */
 import React, {Component} from "react";
 import { createStackNavigator,createAppContainer } from 'react-navigation';

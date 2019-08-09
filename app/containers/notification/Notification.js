@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from "react";
-import {Image, StatusBar, StyleSheet, Text, View, FlatList} from "react-native";
+import {Image, StatusBar, StyleSheet, Text, View, FlatList, ListView} from "react-native";
 import {connect} from "react-redux";
 import {Toolbar} from "../../components/Toolbar";
 import Stomp from '../../utils/stomp';
@@ -12,14 +12,19 @@ import strings from "../../resources/strings";
 import colors from '../../resources/colors';
 import { ListItem } from 'react-native-elements';
 import * as NotificationAction from "../../actions/notification-actions";
+import {getNow} from '../../utils/tools';
+
+const max_notifications = 9;
 
 let ref;
+let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export class Notification extends Component {
 
     constructor(props) {
         super(props);
         this.state={
+            notifications:[],
         };
         ref = this;
     }
@@ -33,38 +38,38 @@ export class Notification extends Component {
     }
 
     render() {
-        const notifications = this.props.notification.get('notifications');
-
         return (
             <View style={styles.container}>
                 <Toolbar title = "通知" actions = {[]} navigation = {this.props.navigation}>
-                    {this._renderNotificationList(notifications)}
+                    {this._renderNotificationList()}
                 </Toolbar>
             </View>);
     }
 
-    _renderNotificationList(notifications){
+    _renderNotificationList(){
+        const notifications = this.props.notification.get("notifications");
+
         return(
         <View style={styles.listViewWrapper}>
-        <FlatList
-            renderItem={this._renderItem}
-            data={notifications}
-            keyExtractor={(item, index) => `${index}`}
-            style={styles.listView}
-        />
+            <ListView
+                style={styles.listView}
+                automaticallyAdjustContentInsets={false}
+                dataSource={ds.cloneWithRows(notifications)}
+                renderRow={this._renderItem}
+            />
         </View>);
     }
 
-    _renderItem = ({ item, index }) => {
-
-        const notifications = this.props.notification.get('notifications');
-        const notification = notifications.get(index);
-
+    _renderItem = (rowData,sectionId,rowId) => {
         return (
             <ListItem
-                key={index}
-                title={notification}
-                leftIcon={{name:'md-notifications',type:'ionicon',color:colors.brightRed}}
+                style={styles.listItemStyle}
+                key={rowId}
+                title={'警报 '+rowId}
+                subtitle={rowData}
+                rightSubtitle={getNow()}
+                rightSubtitleStyle={{fontSize:12}}
+                leftIcon={{name:'md-alert',type:'ionicon',color:colors.brightRed}}
             />
         );
     };
@@ -80,10 +85,12 @@ export class Notification extends Component {
         };
         const on_error = function() {console.log('error')};
         client.connect('admin', 'admin', on_connect, on_error, 'jt808');
-
     }
 
     _judgeAlarmType(notification){
+        const amount = this.props.notification.get("amount");
+        if(amount > max_notifications){this.props.dispatch(NotificationAction.resetNotification());return;}
+
         var noti = '';
         noti = notification.overSpeeding?strings.overSpeeding:noti;
         noti = notification.overTired?strings.overTired:noti;
@@ -110,6 +117,7 @@ export class Notification extends Component {
         noti = notification.doorLock?strings.doorLock:noti;
         noti = notification.GPS?strings.GPS:noti;
         noti = notification.beidou?strings.beidou:noti;
+
         this._showToast(noti);
         this.props.dispatch(NotificationAction.addNotification(noti));
     }
@@ -128,6 +136,11 @@ const styles = StyleSheet.create({
     },
     listView:{
         flex:1,
+    },
+    listItemStyle:{
+        flex:1,
+        borderBottomWidth: 0.8,
+        borderColor: colors.saperatorLine
     }
 });
 

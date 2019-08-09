@@ -49,3 +49,6 @@ export const RESET_RESPONSE = "RESET_RESPONSE";
 export const ADD_NOTIFICATION = "ADD_NOTIFICATION";
 export const RESET_NOTIFICATION = "RESET_NOTIFICATION";
 
+// settings
+export const GET_ANSWERS = "GET_ANSWERS";
+export const RESET_ANSWERS = "RESET_ANSWERS";

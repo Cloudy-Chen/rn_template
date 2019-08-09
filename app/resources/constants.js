@@ -28,7 +28,7 @@ export default {
 
   SUPNUEVO_TEST_BASE_URL: 'http://192.168.1.109:8080/supnuevo',
   SUPNUEVO_VENTAS_TEST_BASE_URL: 'http://192.168.1.100:8080/supnuevo_ventas',
-  SPORTS_HOT_TEST_BASE_URL: 'http://192.168.1.109:8080/badmintonhot',
+  SPORTS_HOT_TEST_BASE_URL: 'http://localhost:8080/badmintonhot',
 
   // STACK
 
@@ -56,4 +56,8 @@ export default {
   ADRESS_DROP_DOWN : ['中国','日本','美国'],
   TIME_DROP_DOWN : ['1月','2月','3月'],
   TYPE_DROP_DOWN : ['食物','服饰','生活'],
+
+  // MAP
+  BAIDU_MAP: "百度地图",
+  BING_MAP: "微软地图",
 }

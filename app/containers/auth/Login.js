@@ -24,8 +24,7 @@ export class Login extends Component {
             loginForm:{
                 username: '',
                 password: '',
-            },
-            isLoading: false,
+            }
         }
     }
 
