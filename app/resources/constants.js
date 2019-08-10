@@ -22,12 +22,12 @@ export default {
   INITIAL: '',
 
   // URL
-  SUPNUEVO_BASE_URL: 'http://211.87.224.40:8080/supnuevo',
-  SUPNUEVO_VENTAS_BASE_URL: 'http://211.87.224.40:8080/supnuevo_ventas',
+  SUPNUEVO_BASE_URL: 'http://www.supnuevo.com.ar:8080',
+  SUPNUEVO_VENTAS_BASE_URL: 'http://Supnuevo-ventas.com.ar:8080',
   SPORTS_HOT_BASE_URL: 'http://114.215.99.2',
 
   SUPNUEVO_TEST_BASE_URL: 'http://192.168.1.109:8080/supnuevo',
-  SUPNUEVO_VENTAS_TEST_BASE_URL: 'http://192.168.1.100:8080/supnuevo_ventas',
+  SUPNUEVO_VENTAS_TEST_BASE_URL: 'http://192.168.1.109:8080/supnuevo_ventas',
   SPORTS_HOT_TEST_BASE_URL: 'http://localhost:8080/badmintonhot',
 
   // STACK
@@ -60,4 +60,12 @@ export default {
   // MAP
   BAIDU_MAP: "百度地图",
   BING_MAP: "微软地图",
+
+  // SETTING
+  GET_RESULT_SUCCESS: "GET_RESULT_SUCCESS",
+  GET_RESULT_FAIL: "GET_RESULT_FAIL",
+
+  // AI
+  AI_COMMODITY: 1,
+  AI_ANSWER: 2,
 }

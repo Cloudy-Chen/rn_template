@@ -97,5 +97,7 @@ module.exports = new LocalizedStrings({
     GPS:"未使用 GPS 卫星进行定位",
     beidou:"未使用北斗卫星进行定位",
 
+    // AIServer
+    getResultFail:"搜索数据失败",
   },
 });

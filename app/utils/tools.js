@@ -4,6 +4,7 @@
 import { Dimensions, DeviceInfo, Platform } from 'react-native';
 import { Header } from 'react-navigation';
 import constants from "../resources/constants";
+import Toast from "react-native-root-toast";
 
 export function isObject(obj) {
   return typeof obj === 'object';
@@ -189,3 +190,11 @@ export function getNow() {
 
   return year+'-'+month+'-'+day+' '+hour+':'+minute;
 };
+
+export function showCenterToast(message){
+  Toast.show(message, {duration: Toast.durations.SHORT,position: Toast.positions.CENTER,});
+}
+
+export function showBottomToast(message){
+  Toast.show(message, {duration: Toast.durations.SHORT,position: Toast.positions.BOTTOM,});
+}

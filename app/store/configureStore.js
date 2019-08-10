@@ -59,8 +59,8 @@ const initialState = new Immutable.Map({
     amount: 0,
   }),
   settings: Immutable.Map({
-    answers: [],
-    amount: 0,
+    resultList: [],
+    resultListResponse: constants.INITIAL,
   })
 });
 

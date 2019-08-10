@@ -3,8 +3,9 @@ import { View, StyleSheet, ActivityIndicator, Platform, Text, TouchableOpacity, 
 import colors from '../../../resources/colors';
 import strings from '../../../resources/strings';
 import constants from './AIConstants';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default class MapSearchBar extends React.PureComponent {
+export default class AISearchBar extends React.PureComponent {
 
     constructor(props) {
         super(props);
@@ -17,47 +18,44 @@ export default class MapSearchBar extends React.PureComponent {
     render() {
         return (
             <View style={styles.searchContainer}>
+                {this._renderSearchResult()}
                 <View style={styles.searchInputContainer}>
-                    <TouchableOpacity onPress={this.props._clearSearchInput}>
-                        <Text style={styles.searchInputLeftTxt}>{constants.CANCEL}</Text>
+                    <TouchableOpacity style={styles.searchIcon} onPress={this.props._onMicrophonePress}>
+                        <Ionicons name={'md-mic'} size={25} color={colors.primaryDarkGray}/>
                     </TouchableOpacity>
                     <View style={styles.inputContainerStyle}>
                         <TextInput
                             ref={ref => this._searchInput = ref}
-                            onChangeText={(text) => this.props._searchTextChange(text)}
-                            placeholder="搜索地点"
                             underlineColorAndroid="transparent"
                             style={styles.inputStyle}
                             value={this.props.searchText}
+                            onChangeText={(text) => this.props._searchTextChange(text)}
                             onFocus={this.props._onSearchInputFocus}
                         />
                     </View>
                 </View>
-                {this._renderSearchResult()}
             </View>
         );
     }
 
     _renderSearchResult = () => {
-
         const {searchResult, showSearchResult} = this.props;
 
         if (!showSearchResult) return null;
-        if (!searchResult.data) return null;
-        if (searchResult.error !== 0) return null;
+        if (!searchResult) return null;
 
-        let searchResultsCustomStyle = {height: constants.SCREEN_HEIGHT - 80}
-        if (searchResult.data.length < 3) {
-            searchResultsCustomStyle = {height: 70 * searchResult.data.length}
+        let searchResultsCustomStyle = {height: 210,borderTopWidth:0.5,borderColor:colors.primaryGray}
+        if (searchResult.length < 3) {
+            searchResultsCustomStyle = {height: 70 * searchResult.length,borderTopWidth:0.5,borderColor:colors.primaryGray}
         }
 
-        let resultView = searchResult.data.map((item, index) => {
+        let resultView = searchResult.map((item, index) => {
             return (
                 <TouchableOpacity key={index} onPress={() => {this.props._onSearchResultPress(item)}}>
                     <View style={styles.searchResultContainer}>
                         <View style={styles.searchResultRightContainer}>
-                            <Text numberOfLines={1} style={styles.searchResultName}>{item.title}</Text>
-                            <Text numberOfLines={1} style={styles.searchResultAddr}>{item.address}</Text>
+                            <Text numberOfLines={1} style={styles.searchResultTitle}>{item.codigo}</Text>
+                            <Text numberOfLines={1} style={styles.searchResultSubTitle}>{item.descripcion}</Text>
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -78,14 +76,21 @@ export default class MapSearchBar extends React.PureComponent {
 const styles = StyleSheet.create({
     searchContainer: {
         width: constants.SCREEN_WIDTH,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     searchInputContainer: {
+        height: Platform.OS === 'ios' ? 49 : 55,
         flexDirection: 'row',
         alignItems: 'center',
         padding: 10,
         borderWidth: StyleSheet.hairlineWidth,
         borderColor: '#c8c7cc',
+    },
+    searchIcon:{
+        width:30,
+        height:30,
+        alignItems:'center',
+        justifyContent: 'center',
     },
     inputContainerStyle: {
         flex: 1,
@@ -118,7 +123,7 @@ const styles = StyleSheet.create({
     searchResultsContainer: {
         borderWidth: StyleSheet.hairlineWidth,
         borderColor: '#c8c7cc',
-        borderTopWidth: 0,
+        borderTopWidth: 0.5,
         height: 70,
         width: constants.SCREEN_WIDTH,
     },
@@ -134,11 +139,11 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingLeft: 20
     },
-    searchResultName: {
+    searchResultTitle: {
         fontSize: 18,
         color: '#030303'
     },
-    searchResultAddr: {
+    searchResultSubTitle: {
         fontSize: 12,
         color: '#b2b2b2',
         marginTop: 5
