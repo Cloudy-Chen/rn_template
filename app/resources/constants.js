@@ -26,8 +26,8 @@ export default {
   SUPNUEVO_VENTAS_BASE_URL: 'http://Supnuevo-ventas.com.ar:8080',
   SPORTS_HOT_BASE_URL: 'http://114.215.99.2',
 
-  SUPNUEVO_TEST_BASE_URL: 'http://192.168.1.109:8080/supnuevo',
-  SUPNUEVO_VENTAS_TEST_BASE_URL: 'http://192.168.1.109:8080/supnuevo_ventas',
+  SUPNUEVO_TEST_BASE_URL: 'http://10.27.215.54:8080/supnuevo',
+  SUPNUEVO_VENTAS_TEST_BASE_URL: 'http://10.27.215.54:8080/supnuevo_ventas',
   SPORTS_HOT_TEST_BASE_URL: 'http://localhost:8080/badmintonhot',
 
   // STACK
@@ -68,4 +68,8 @@ export default {
   // AI
   AI_COMMODITY: 1,
   AI_ANSWER: 2,
+  TYPE_COMMODITY: '商品检索',
+  TYPE_ANSWER: '智能问答',
+  ANSWER_ROBOT: 'ROBOT',
+  ROBOT_HELLO: "您好，我是您的问答机器人，请问您有什么问题？",
 }

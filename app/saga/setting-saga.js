@@ -14,7 +14,7 @@ function* getCommodityListBySearchEngine ( action ) {
   try {
     const userinput = action.userinput;
     const curAuth = action.auth;
-    // const otherAuth = yield call(AuthApi.loginAfterOtherServerAuthed, curAuth);
+    const otherAuth = yield call(AuthApi.loginAfterOtherServerAuthed, curAuth);
     const response = yield call(SettingApi.getCommdodityPriceFormBySearchEngine, userinput);
       const commodityList = response.listCommodity;
       if (!isEmptyObject(response.message)) {

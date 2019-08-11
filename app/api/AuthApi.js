@@ -3,9 +3,7 @@
  * 登录数据请求接口
  */
 
-import Base64 from "../utils/Base64";
 import constants from "../resources/constants";
-import queryString from "query-string";
 import {post} from '../utils/httpUtils'
 
 // 登录

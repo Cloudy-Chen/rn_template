@@ -61,6 +61,7 @@ const initialState = new Immutable.Map({
   settings: Immutable.Map({
     resultList: [],
     resultListResponse: constants.INITIAL,
+    message: [],
   })
 });
 

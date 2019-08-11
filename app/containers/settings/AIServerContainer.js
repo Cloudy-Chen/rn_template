@@ -6,7 +6,7 @@ import React, {Component} from "react";
 import {Image, StatusBar, StyleSheet, Text, View} from "react-native";
 import {connect} from "react-redux";
 import {Toolbar} from "../../components/Toolbar";
-import {AISearchBar, AIDataBoard} from "../../components/AIServer/index";
+import {AISearchBar, AIDataBoard, AIAnswerBoard, AIDataDisplay} from "../../components/AIServer/index";
 import constants from "../../resources/constants";
 import * as SettingsActions from "../../actions/settings-actions";
 import strings from "../../resources/strings";
@@ -17,11 +17,11 @@ export class AIServerContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            AIType: constants.AI_COMMODITY,
+            AIType: constants.TYPE_COMMODITY,
             searchText: '',
             showSearchResult: false,
             searchResult: [],
-            commodityInfo:null,
+            data:null,
         };
         this.auth = {
             username: this.props.auth.get("username"),
@@ -47,21 +47,40 @@ export class AIServerContainer extends Component {
     render() {
     return (
         <View style={styles.container}>
-            <Toolbar title = "智能问答" actions = {[]} isBack={true} navigation = {this.props.navigation}>
-                <AIDataBoard data={this.state.commodityInfo}/>
-                <AISearchBar
-                    ref={ref => this._searchbar = ref}
-                    onMicrophonePress={this._onMicrophonePress}
+            <Toolbar title = "智能问答" isBack={true} navigation = {this.props.navigation}
+                     actions = {[
+                         {value: constants.TYPE_COMMODITY, show: 'OPTION_NEVER'},
+                         {value: constants.TYPE_ANSWER, show: 'OPTION_NEVER'},
+                     ]}
+                     onPress = {(i) => {this._onAIOption(i)}}>
+                {this._renderAIDataCard()}
+            </Toolbar>
+        </View>);
+  }
+
+    _renderAIDataCard(){
+        return(
+            this.state.AIType === constants.TYPE_COMMODITY?
+                    <AIDataBoard
+                        data={this.state.data}
+                        _onMicrophonePress={this._onMicrophonePress}
+                        _searchTextChange={(text) => this._searchTextChange(text)}
+                        _onSearchInputFocus={this._onSearchInputFocus}
+                        _onSearchResultPress={this._onSearchResultPress}
+                        showSearchResult = {this.state.showSearchResult}
+                        searchResult = {this.state.searchResult}
+                        searchText = {this.state.searchText}/>
+                :<AIAnswerBoard
+                    username={this.props.auth.get('username')}
+                    _onMicrophonePress={this._onMicrophonePress}
                     _searchTextChange={(text) => this._searchTextChange(text)}
-                    _onSearchInputFocus={this._onSearchInputFocus}
                     _onSearchResultPress={this._onSearchResultPress}
                     showSearchResult = {this.state.showSearchResult}
                     searchResult = {this.state.searchResult}
                     searchText = {this.state.searchText}
-                    />
-            </Toolbar>
-        </View>);
-  }
+                />
+        )
+    }
 
     _onMicrophonePress = ()=>{};
 
@@ -71,6 +90,8 @@ export class AIServerContainer extends Component {
             this._clearSearchInput()
             return;
         }
+
+        if(this.state.AIType === constants.TYPE_COMMODITY)
         this.props.dispatch(SettingsActions.getCommodityList(text,this.auth));
     }
 
@@ -80,10 +101,18 @@ export class AIServerContainer extends Component {
 
     _onSearchResultPress = (item) => {
         this.setState({
-            searchText: item.codigo,
+            searchText: this.state.AIType === constants.TYPE_COMMODITY?item.codigo:item,
             showSearchResult: false,
-            commodityInfo: item,
+            data: item,
         })
+    }
+
+    _onAIOption(i) {
+        this._clearSearchInput();
+        switch (i) {
+            case 0:this.setState({AIType: constants.TYPE_COMMODITY});break;
+            case 1:this.setState({AIType: constants.TYPE_ANSWER});break;
+        }
     }
 };
 

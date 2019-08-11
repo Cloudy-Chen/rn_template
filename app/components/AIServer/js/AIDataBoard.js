@@ -1,22 +1,15 @@
 /**
- * AIDataBoard.js
+ * AIServerContainer.js
  */
 
-import React, {
-    Component,
-} from 'react';
+import React, {Component} from "react";
+import {Image, StatusBar, StyleSheet, Text, View} from "react-native";
+import {connect} from "react-redux";
+import AIDataDisplay from './AIDataDisplay';
+import AISearchBar from './AISearchBar';
 
-import {StyleSheet, Dimensions, View, Text, ListView, Modal, ActivityIndicator, ScrollView} from 'react-native';
-import PropTypes from 'prop-types';
-import {InformationItem, TYPE_TEXT} from "../../InformationItem";
-import {_switchrubroIdxTorubro, SCREEN_WIDTH, showCenterToast} from "../../../utils/tools";
-import strings from "../../../resources/strings";
-import ZoomableImageViewer from '../../../components/ZoomableImageViewer';
-import IntroDivider from '../../../components/IntroDivider';
-import {Image} from "react-native-elements";
+export default class AIDataBoard extends React.PureComponent {
 
-
-export default class AIServer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,43 +17,27 @@ export default class AIServer extends Component {
     }
 
     render() {
-        const data = this.props.data;
 
-        return (data !== null?
-                    <ScrollView style={styles.container}>
-                        <IntroDivider intro={strings.imgurls_intro}/>
-                        {this._renderImage(data.pictureurl)}
-                        <IntroDivider intro={strings.details_intro}/>
-                        {this._renderInformationListItem(data)}
-                    </ScrollView>:
-                    <View style={styles.container}/>
-        );
+        const {data, showSearchResult, searchResult, searchText} = this.props;
+
+        return ([
+                <AIDataDisplay data={data}/>,
+                <AISearchBar
+                    onMicrophonePress={this.props._onMicrophonePress}
+                    _searchTextChange={this.props._searchTextChange}
+                    _onSearchInputFocus={this.props._onSearchInputFocus}
+                    _onSearchResultPress={this.props._onSearchResultPress}
+                    showSearchResult = {showSearchResult}
+                    searchResult = {searchResult}
+                    searchText = {searchText}/>]
+            );
     }
+};
 
-    _renderImage(pictureurl){
-        return(<View style={styles.imageWrapper}><Image style={styles.image} resizeMode={"contain"} source={require('../../../assets/img/img_logo.png')} /></View>);
-    }
-
-    // 商品相关信息列表
-    _renderInformationListItem(data){
-        return([
-            <InformationItem key = {0} type = {TYPE_TEXT} title = {strings.name} content = {data.descripcion}/>,
-            <InformationItem key = {1} type = {TYPE_TEXT} title = {strings.codigo} content = {data.codigo} />
-        ]);}
-}
-
-var styles = StyleSheet.create({
-    container:{
+const styles = StyleSheet.create({
+    container: {
         flex:1,
+        alignItems:'center',
+        justifyContent: 'center'
     },
-    imageWrapper:{
-        flex:1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    image:{
-        width: 200,
-        height: 200,
-        margin: 10,
-    },
-})
+});

@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, ActivityIndicator, Platform, Text, TouchableOpacity, TextInput, ScrollView} from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Platform, Text, TouchableOpacity, TextInput, ScrollView, KeyboardAvoidingView} from 'react-native';
 import colors from '../../../resources/colors';
 import strings from '../../../resources/strings';
 import constants from './AIConstants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {getHeaderHeight} from "../../../utils/tools";
 
 export default class AISearchBar extends React.PureComponent {
 
@@ -17,6 +18,8 @@ export default class AISearchBar extends React.PureComponent {
 
     render() {
         return (
+
+            <KeyboardAvoidingView behavior="padding">
             <View style={styles.searchContainer}>
                 {this._renderSearchResult()}
                 <View style={styles.searchInputContainer}>
@@ -35,6 +38,7 @@ export default class AISearchBar extends React.PureComponent {
                     </View>
                 </View>
             </View>
+            </KeyboardAvoidingView>
         );
     }
 
