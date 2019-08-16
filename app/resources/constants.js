@@ -26,8 +26,8 @@ export default {
   SUPNUEVO_VENTAS_BASE_URL: 'http://Supnuevo-ventas.com.ar:8080',
   SPORTS_HOT_BASE_URL: 'http://114.215.99.2',
 
-  SUPNUEVO_TEST_BASE_URL: 'http://10.27.215.54:8080/supnuevo',
-  SUPNUEVO_VENTAS_TEST_BASE_URL: 'http://10.27.215.54:8080/supnuevo_ventas',
+  SUPNUEVO_TEST_BASE_URL: 'http://127.0.0.1:8080/supnuevo',
+  SUPNUEVO_VENTAS_TEST_BASE_URL: 'http://127.0.0.1:8080/supnuevo_ventas',
   SPORTS_HOT_TEST_BASE_URL: 'http://localhost:8080/badmintonhot',
 
   // STACK

@@ -12,6 +12,7 @@ import colors from '../../resources/colors';
 import strings from '../../resources/strings';
 import {isEmptyObject, isObject} from '../../utils/tools'
 import {SpinnerWrapper} from '../../components/SpinnerLoading/index'
+import SwipeableView from "../../components/SwipeableView";
 
 const backgroundImg = require('../../assets/img/app_background_img.jpg');
 
@@ -83,7 +84,6 @@ export class Login extends Component {
                             this.setState({loginForm:Object.assign(this.state.loginForm,{password: password})});
                         }}
                     />
-
                     {/*登录按钮*/}
                     <TouchableOpacity
                         style={loginStyles.loginButtonStyle}
