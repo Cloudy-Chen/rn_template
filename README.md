@@ -1,4 +1,3 @@
-[TOC]
 # rn_template 基于ReactNative前端框架设计与实现
 # 1. 架构设计
 ## 1.1 应用框架
