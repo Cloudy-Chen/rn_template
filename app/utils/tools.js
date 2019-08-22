@@ -7,11 +7,11 @@ import constants from "../resources/constants";
 import Toast from "react-native-root-toast";
 
 export function isObject(obj) {
-  return typeof obj === 'object';
+  return obj != null && obj !== "";
 }
 
 export function isEmptyObject(obj) {
-  return (obj === null) || (obj === undefined) || (obj === "") || (Object.keys(obj).length === 0 && obj.constructor === Object);
+  return (obj === null) || (obj === undefined) || (obj === "");
 }
 
 export function isTheSameOfKeys(obj, objToCompare, keys: [string]) {
@@ -197,4 +197,24 @@ export function showCenterToast(message){
 
 export function showBottomToast(message){
   Toast.show(message, {duration: Toast.durations.SHORT,position: Toast.positions.BOTTOM,});
+}
+
+//四舍五入保留2位小数（不够位数，则用0替补）
+function keepTwoDecimalFull(num) {
+  var result = parseFloat(num);
+  if (isNaN(result)) {
+    alert('传递参数错误，请检查！');
+    return false;
+  }
+  result = Math.round(num * 100) / 100;
+  var s_x = result.toString();
+  var pos_decimal = s_x.indexOf('.');
+  if (pos_decimal < 0) {
+    pos_decimal = s_x.length;
+    s_x += '.';
+  }
+  while (s_x.length <= pos_decimal + 2) {
+    s_x += '0';
+  }
+  return s_x;
 }

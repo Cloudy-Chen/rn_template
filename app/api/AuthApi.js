@@ -8,7 +8,7 @@ import {post} from '../utils/httpUtils'
 
 // 登录
 export function getAccessToken (username, password) {
-  const url = constants.SUPNUEVO_TEST_BASE_URL + '/func/auth/webLogin';
+  const url = constants.SUPNUEVO_BASE_URL + '/func/auth/webLogin';
   const body = {
     loginName: username,
     password: password,
@@ -20,7 +20,7 @@ export function getAccessToken (username, password) {
 
 // 跨服务器访问
 export function loginAfterOtherServerAuthed (auth) {
-  const url = constants.SUPNUEVO_VENTAS_TEST_BASE_URL + '/func/auth/loginAfterOtherServerAuthed';
+  const url = constants.SUPNUEVO_VENTAS_BASE_URL + '/func/auth/loginAfterOtherServerAuthed';
   const body = {
     loginName: auth.username,
     password: auth.password,
@@ -32,7 +32,7 @@ export function loginAfterOtherServerAuthed (auth) {
 
 // 登出
 export function logOut () {
-  const url = constants.SUPNUEVO_TEST_BASE_URL + '/func/auth/webLogout';
+  const url = constants.SUPNUEVO_BASE_URL + '/func/auth/webLogout';
   const body = {
   }
 

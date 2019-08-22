@@ -85,11 +85,9 @@ export default class SwipeableView extends React.PureComponent {
 const styles = StyleSheet.create({
   container: {
     height:50,
-    width:SCREEN_WIDTH,
+    width:50,
     justifyContent:'center',
     alignItems: 'center',
-    paddingVertical: 5,
-    flexDirection: 'column'
   },
   buttonStyle:{
     borderRadius:5,
