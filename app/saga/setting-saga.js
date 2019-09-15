@@ -51,7 +51,23 @@ function* getAnswerListBySearchEngine ( action ) {
   }
 }
 
+// 将.acc音频文件转换为String字符串
+function* convertVoiceToTxt ( action ) {
+  try {
+    const filePath = action.filePath;
+    const response = yield call(SettingApi.convertVoiceToTxt, filePath);
+    if(response.re == 1) {
+      yield put({type: actions.CONVERT_VOICE_TO_TXT_SUCCESS, convertTXT: response.data});
+    }else{
+      yield put({type: actions.CONVERT_VOICE_TO_TXT_FAIL});
+    }
+  } catch (e) {
+    yield put({type: actions.CONVERT_VOICE_TO_TXT_FAIL});
+  }
+}
+
 export default [
     takeEvery(actions.GET_COMMODITY_ACTION,getCommodityListBySearchEngine),
     takeEvery(actions.GET_ANSWER_ACTION,getAnswerListBySearchEngine),
+    takeEvery(actions.CONVERT_VOICE_TO_TXT,convertVoiceToTxt),
 ]

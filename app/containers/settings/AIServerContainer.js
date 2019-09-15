@@ -31,16 +31,30 @@ export class AIServerContainer extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const Response = this.props.settings.get('resultListResponse');
-        const nextResponse = nextProps.settings.get('resultListResponse');
+        // 搜索引擎
+        const resultListResponse = this.props.settings.get('resultListResponse');
+        const nextResultListResponse = nextProps.settings.get('resultListResponse');
         const searchResult = nextProps.settings.get('resultList');
 
-        if (Response === constants.INITIAL && nextResponse === constants.GET_RESULT_SUCCESS) {
+        if (resultListResponse === constants.INITIAL && nextResultListResponse === constants.GET_RESULT_SUCCESS) {
             nextProps.dispatch(SettingsActions.resetResultResponse());
             this.setState({searchResult:searchResult})
-        }else if (Response === constants.INITIAL && nextResponse === constants.GET_RESULT_FAIL){
+        }else if (resultListResponse === constants.INITIAL && nextResultListResponse === constants.GET_RESULT_FAIL){
             showCenterToast(strings.getResultFail);
             nextProps.dispatch(SettingsActions.resetResultResponse());
+        }
+
+        // 语音转换
+        const convertResponse = this.props.settings.get('convertResponse');
+        const nextConvertResponse = nextProps.settings.get('convertResponse');
+        const convertTXT = nextProps.settings.get('convertTXT');
+
+        if (convertResponse === constants.INITIAL && nextConvertResponse === constants.CONVERT_VOICE_TO_TXT_SUCCESS) {
+            this.setState({searchText:convertTXT});
+            nextProps.dispatch(SettingsActions.resetConvertResponse());
+        }else if (convertResponse === constants.INITIAL && nextConvertResponse === constants.CONVERT_VOICE_TO_TXT_FAIL){
+            alert(constants.convert_fail);
+            nextProps.dispatch(SettingsActions.resetConvertResponse());
         }
     }
 
@@ -67,6 +81,7 @@ export class AIServerContainer extends Component {
                         _searchTextChange={(text) => this._searchTextChange(text)}
                         _onSearchInputFocus={this._onSearchInputFocus}
                         _onSearchResultPress={this._onSearchResultPress}
+                        _uploadRecordFile={(audioPath)=>this._uploadRecordFile(audioPath)}
                         showSearchResult = {this.state.showSearchResult}
                         searchResult = {this.state.searchResult}
                         searchText = {this.state.searchText}/>
@@ -75,6 +90,7 @@ export class AIServerContainer extends Component {
                     _onMicrophonePress={this._onMicrophonePress}
                     _searchTextChange={(text) => this._searchTextChange(text)}
                     _onSearchResultPress={this._onSearchResultPress}
+                    _uploadRecordFile={(audioPath)=>this._uploadRecordFile(audioPath)}
                     showSearchResult = {this.state.showSearchResult}
                     searchResult = {this.state.searchResult}
                     searchText = {this.state.searchText}
@@ -82,7 +98,9 @@ export class AIServerContainer extends Component {
         )
     }
 
-    _onMicrophonePress = ()=>{};
+    _onMicrophonePress = ()=>{
+
+    };
 
     _searchTextChange = (text) => {
         this.setState({searchText: text,showSearchResult: true});
@@ -113,6 +131,10 @@ export class AIServerContainer extends Component {
             case 0:this.setState({AIType: constants.TYPE_COMMODITY});break;
             case 1:this.setState({AIType: constants.TYPE_ANSWER});break;
         }
+    }
+
+    _uploadRecordFile(audioPath){
+        this.props.dispatch(SettingsActions.convertVoiceToTxt(audioPath));
     }
 };
 

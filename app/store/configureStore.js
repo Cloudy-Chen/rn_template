@@ -62,6 +62,7 @@ const initialState = new Immutable.Map({
     resultList: [],
     resultListResponse: constants.INITIAL,
     message: [],
+    convertTXT:"",
   })
 });
 

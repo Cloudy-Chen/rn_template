@@ -27,6 +27,7 @@ export default class AIDataBoard extends React.PureComponent {
                     _searchTextChange={this.props._searchTextChange}
                     _onSearchInputFocus={this.props._onSearchInputFocus}
                     _onSearchResultPress={this.props._onSearchResultPress}
+                    _uploadRecordFile={(audioPath)=>this.props._uploadRecordFile(audioPath)}
                     showSearchResult = {showSearchResult}
                     searchResult = {searchResult}
                     searchText = {searchText}/>]

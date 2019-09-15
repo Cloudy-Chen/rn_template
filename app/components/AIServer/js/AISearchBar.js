@@ -1,30 +1,65 @@
 import React from 'react';
 import { View, StyleSheet, ActivityIndicator, Platform, Text, TouchableOpacity, TextInput, ScrollView, KeyboardAvoidingView} from 'react-native';
 import colors from '../../../resources/colors';
-import strings from '../../../resources/strings';
 import constants from './AIConstants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {getHeaderHeight} from "../../../utils/tools";
+import {getHeaderHeight, isObject, showCenterToast} from "../../../utils/tools";
+import {AudioRecorder, AudioUtils} from 'react-native-audio'
+import RecordingModal from '../../../components/RecordingModal';
+import {connect} from "react-redux";
+
+const mic_recording = <Ionicons name={'md-mic-off'} size={25} color={colors.primaryDarkGray}/>
+const mic_stop = <Ionicons name={'md-mic'} size={25} color={colors.primaryDarkGray}/>
 
 export default class AISearchBar extends React.PureComponent {
 
     constructor(props) {
         super(props);
         this.state = {
+            // 搜索栏
             searchText: '',
             showSearchResult: false,
+            // 录音
+            hasPermission: undefined, //授权状态
+            recording: false, //是否录音
+            stop: false, //录音是否停止
+            currentTime: 0, //录音时长
         }
     }
 
-    render() {
-        return (
+    componentDidMount(): void {
+        // 请求授权
+        AudioRecorder.requestAuthorization()
+            .then(isAuthor => {
+                if(!isAuthor) {
+                    return showCenterToast(constants.request_Record_Permission);
+                }
+                this.setState({hasPermission: isAuthor});
+                AudioRecorder.prepareRecordingAtPath(constants.audioPath,constants.RecordPathOption);
+                // 录音进展
+                AudioRecorder.onProgress = (data) => {
+                    this.setState({currentTime: Math.floor(data.currentTime)});
+                };
+                // 完成录音
+                AudioRecorder.onFinished = (data) => {
+                    // data 返回需要上传到后台的录音数据
+                    console.log(this.state.currentTime)
+                    console.log(data)
+                };
+            })
+    }
 
+    render() {
+        const {recording, stop} = this.state;
+
+        return (
             <KeyboardAvoidingView behavior="padding">
             <View style={styles.searchContainer}>
+                <RecordingModal show={recording}/>
                 {this._renderSearchResult()}
                 <View style={styles.searchInputContainer}>
-                    <TouchableOpacity style={styles.searchIcon} onPress={this.props._onMicrophonePress}>
-                        <Ionicons name={'md-mic'} size={25} color={colors.primaryDarkGray}/>
+                    <TouchableOpacity style={styles.searchIcon} onLongPress={this._micro_record} onPressOut={this._micro_stop}>
+                        {recording?mic_recording:mic_stop}
                     </TouchableOpacity>
                     <View style={styles.inputContainerStyle}>
                         <TextInput
@@ -73,7 +108,32 @@ export default class AISearchBar extends React.PureComponent {
                 </ScrollView>
             </View>
         )
-    }
+    };
+
+    // 开始录音
+    _micro_record = async () => {
+        if(!this.state.hasPermission) return showCenterToast(constants.request_Record_Permission);
+        if(this.state.recording) return showCenterToast(constants.is_recording);
+        if(this.state.stop) AudioRecorder.prepareRecordingAtPath(constants.audioPath,constants.RecordPathOption);
+        this.setState({recording: true})
+
+        try {
+            await AudioRecorder.startRecording()
+        } catch (err) {
+            console.log(err)
+        }
+    };
+
+    // 停止录音
+    _micro_stop = async () => {
+        this.setState({stop: true, recording: false});
+        try {
+            await AudioRecorder.stopRecording();
+        } catch (error) {
+            alert(error);
+        }
+        this.props._uploadRecordFile(constants.audioPath)
+    };
 
 }
 

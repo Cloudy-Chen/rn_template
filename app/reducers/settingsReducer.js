@@ -21,6 +21,18 @@ export default function settingsReducer(state, action = {}) {
       return state.withMutations(state => state
           .set('resultList',[])
           .set('resultListResponse',constants.INITIAL));
+    case actions.CONVERT_VOICE_TO_TXT_SUCCESS:
+      return state.withMutations(state => state
+          .set('convertTXT',action.convertTXT)
+          .set('convertResponse',constants.CONVERT_VOICE_TO_TXT_SUCCESS));
+    case actions.CONVERT_VOICE_TO_TXT_FAIL:
+      return state.withMutations(state => state
+          .set('convertTXT',"")
+          .set('convertResponse',constants.CONVERT_VOICE_TO_TXT_FAIL));
+    case actions.RESET_CONVERT_RESPONSE:
+      return state.withMutations(state => state
+          .set('convertTXT',"")
+          .set('convertResponse',constants.INITIAL));
     default:
       return state
   }

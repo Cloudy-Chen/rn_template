@@ -148,6 +148,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-audio')
     implementation project(':react-native-image-crop-picker')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-gesture-handler')

@@ -42,3 +42,30 @@ export function post(url, params) {
         }).done();
     })
 }
+
+export function postFile(url, params) {
+    return new Promise((resolve, reject) => {
+        let file = {uri:params.filePath, name:params.fileName, type:"multipart/form-data"};
+        let formData = new FormData().append('audio',file);
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            credentials:'include',
+            body: formData
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .catch((error) => {
+                reject(error);
+            }).then((responseData) => {
+            if (!responseData) {
+                reject(new Error('responseData is null'));
+                return;
+            }
+            resolve(responseData);
+        }).done();
+    })
+}

@@ -30,3 +30,16 @@ export function resetResultResponse(){
     type: actions.RESET_RESULT_RESPONSE,
   }
 }
+
+export function convertVoiceToTxt(filePath){
+  return {
+    type: actions.CONVERT_VOICE_TO_TXT,
+    filePath:filePath,
+  }
+}
+
+export function resetConvertResponse(){
+  return {
+    type: actions.RESET_CONVERT_RESPONSE
+  }
+}
